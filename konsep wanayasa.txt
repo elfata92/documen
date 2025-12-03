@@ -1,0 +1,17 @@
+a. Tarik Data dari SIPP (Jadwal)
+	Perkara (Semua)
+	Perkara Biaya (Rekap Saja)
+	Perkara Jadwal Sidang 
+	Perkara Ikrar Talak (Opsi) Perkara Putusan 	
+b. Antrian 
+   
+c. Sidang 
+	Tunda 
+	Putus 
+	Edit
+	Ikrar 
+	Perkara Proses 
+	Sys_audit 
+		
+d. Keuangan 
+	

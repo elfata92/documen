@@ -1,0 +1,42 @@
+update 1.2
+
+- Pembuatan BAS : 
+	+ Perbaikan urutan tanya jawab tanya jawab
+	+ Agar ketika sudah ditutup dan dibuka lagi tanya jawab otomatis tercetak, tanpa harus klik tanya jawab. 
+
+- Variabel  : penambahan Fungsi terbilang
+
+
+Contoh Dokumen untuk  Ikrar (CEK DI FOLDER doc) : 
+- BAS Langsung Ikrar T Hadir.rtf
+- BAS Langsung Ikrar T Tidak Hadir.rtf
+- Penetapan Ikrar Talak.rtf
+
+
+Permasalahan Jawaban Tanya Jawab Saksi Terputus, karena limit karakter
+edit file bernama /etc/my.cnf
+
+di bawah [mysqld]
+ 
+tambahkan 
+
+group_concat_max_len = 1000000
+
+
+
+
+jalankan sql berikut untuk Penambahan variabel : 
+
+INSERT INTO `master_variabel` ( `var_nomor`, `var_keterangan`, `var_sumber_sipp`, `var_model`, `var_jenis`, `var_tabel`, `var_field`, `var_urutan`, `var_tipe_data`, `var_sql_data`, `var_referensi`, `var_simpan`, `var_pilihan`, `var_fungsi_nama`, `var_opsi_sql_atau_file`, `var_default_data`, `var_cek_sidang`, `var_pihak_ke`) VALUES
+('10005',	'Raj i / Bain',	0,	'text',	'text',	'data_teks',	'DATA',	0,	NULL,	'',	NULL,	NULL,	NULL,	'',	NULL,	'',	0,	NULL),
+('1101',	'Biaya Penetapan',	1,	'sql',	'text',	'',	'',	0,	NULL,	'SELECT SUM(perkara_biaya.`jumlah`) as DATA FROM perkara_biaya \r\nLEFT JOIN perkara_putusan \r\nON perkara_putusan.perkara_id=perkara_biaya.`perkara_id`\r\nWHERE perkara_biaya.perkara_id=#perkara_id#  AND tanggal_transaksi > perkara_putusan.`tanggal_putusan` AND kategori_id=4',	NULL,	NULL,	NULL,	'format_uang',	NULL,	'',	0,	NULL),
+('0089',	'Terbilang Biaya Penetapan',	1,	'sql',	'text',	'',	'',	0,	NULL,	'SELECT SUM(perkara_biaya.`jumlah`) as DATA FROM perkara_biaya \r\nLEFT JOIN perkara_putusan \r\nON perkara_putusan.perkara_id=perkara_biaya.`perkara_id`\r\nWHERE perkara_biaya.perkara_id=#perkara_id#  AND tanggal_transaksi > perkara_putusan.`tanggal_putusan` AND kategori_id=4',	NULL,	NULL,	NULL,	'terbilang_rupiah',	NULL,	'',	0,	NULL),
+('6102',	'Identitas Saksi 1 T',	0,	'sql',	'textarea',	'data_teks',	'DATA',	NULL,	NULL,	'SELECT \r\nCONCAT(\r\na.nama \r\n,\', umur \'\r\n,get_umur (b.tanggal_lahir,g.tanggal_pendaftaran)\r\n,\' tahun,\'\r\n,\' Agama \'\r\n, d.nama\r\n,\', Pendidikan \'\r\n,e.nama\r\n,\', Pekerjaan \'\r\n,b.pekerjaan\r\n,\', tempat tinggal di \'\r\n,a.alamat) AS DATA \r\n				FROM\r\n				  perkara_pihak5 AS a \r\n				  JOIN pihak AS b \r\n					ON a.pihak_id = b.id \r\n				   \r\n				  LEFT JOIN agama AS d \r\n					ON b.agama_id = d.id \r\n				  LEFT JOIN tingkat_pendidikan AS e \r\n					ON b.pendidikan_id = e.id \r\n				  JOIN perkara AS g \r\n					ON a.perkara_id = g.perkara_id \r\n				WHERE a.perkara_id =#perkara_id# AND a.jenis_pihak_id=2\r\norder by urutan asc limit 1',	NULL,	NULL,	NULL,	NULL,	NULL,	'umur ... tahun, Agama Islam, pekerjaan ... , tempat tinggal di #0105#',	0,	NULL),
+('6103',	'Identitas Saksi 2 T',	0,	'sql',	'textarea',	'data_teks',	'DATA',	NULL,	NULL,	'SELECT \r\nCONCAT(\r\na.nama \r\n,\', umur \'\r\n,get_umur (b.tanggal_lahir,g.tanggal_pendaftaran)\r\n,\' tahun,\'\r\n,\' Agama \'\r\n, d.nama\r\n,\', Pendidikan \'\r\n,e.nama\r\n,\', Pekerjaan \'\r\n,b.pekerjaan\r\n,\', tempat tinggal di \'\r\n,a.alamat) AS DATA \r\n				FROM\r\n				  perkara_pihak5 AS a \r\n				  JOIN pihak AS b \r\n					ON a.pihak_id = b.id \r\n				   \r\n				  LEFT JOIN agama AS d \r\n					ON b.agama_id = d.id \r\n				  LEFT JOIN tingkat_pendidikan AS e \r\n					ON b.pendidikan_id = e.id \r\n				  JOIN perkara AS g \r\n					ON a.perkara_id = g.perkara_id \r\n				WHERE a.perkara_id =#perkara_id# AND a.jenis_pihak_id=2\r\norder by urutan asc limit 2',	NULL,	NULL,	NULL,	NULL,	NULL,	'umur ... tahun, Agama Islam, pekerjaan ... , tempat tinggal di #0105#',	0,	NULL),
+('1181',	'Kehadiran T',	1,	'sql',	'text',	'',	'',	0,	NULL,	'SELECT\r\nCASE \r\n    WHEN dihadiri_oleh=1\r\n		THEN \'hadir dan dalam keadaan suci\'\r\n\r\n    ELSE\r\n      \'tidak hadir, sehingga tidak diketahui dalam keadaan suci atau tidak\'\r\nEND    \r\n\r\n  as DATA FROM perkara_jadwal_sidang WHERE id=#id_sidang# AND perkara_id=#perkara_id#',	NULL,	NULL,	NULL,	'',	NULL,	'',	1,	NULL),
+('0090',	'dihadiri oleh',	1,	'sql',	'text',	'',	'',	0,	NULL,	'SELECT\r\nCASE \r\n    WHEN dihadiri_oleh=1\r\n		THEN \'Pemohon dan Termohon\'\r\n\r\n    ELSE\r\n      \'Pemohon tanpa hadirnya Termohon\'\r\nEND    \r\n\r\n  as DATA FROM perkara_jadwal_sidang WHERE id=#id_sidang# AND perkara_id=#perkara_id#',	NULL,	NULL,	NULL,	'',	NULL,	'',	1,	NULL),
+('0135',	'Hari Ikrar Talak',	1,	'sql',	'text',	'',	'',	NULL,	NULL,	'SELECT nama_hari(tanggal_sidang_pertama) AS DATA FROM perkara_ikrar_talak WHERE perkara_id=#perkara_id#',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL),
+('1182',	'Tgl Ikrar Talak',	1,	'sql',	'text',	NULL,	NULL,	NULL,	NULL,	'SELECT tanggal_sidang_pertama  as DATA FROM perkara_ikrar_talak WHERE  perkara_id=#perkara_id#',	NULL,	NULL,	NULL,	'tanggal_indonesia',	NULL,	NULL,	1,	NULL),
+('5233',	'Tgl Hijriah Ikrar Talak',	1,	'sql',	'text',	NULL,	NULL,	NULL,	NULL,	'SELECT  tanggal_sidang_pertama  AS DATA FROM perkara_ikrar_talak WHERE perkara_id=#perkara_id#',	NULL,	NULL,	NULL,	'hijriah',	NULL,	NULL,	0,	NULL),
+('20000',	'Tanya Jawab Calon Istri',	0,	'tanya_jawab',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	4),
+('1038',	'Identitas Wali Calon Istri',	0,	'sql',	'textarea',	'data_teks',	'DATA',	NULL,	NULL,	'',	NULL,	NULL,	NULL,	NULL,	NULL,	'umur ... tahun, Agama Islam, pekerjaan ... , tempat tinggal di RT ... RW .... Desa ..... Kecamatan ... Kabupaten .......',	0,	NULL);
